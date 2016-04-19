@@ -1,0 +1,22 @@
+<div class="container">
+	<h2>Articles
+		 <%= link_to "New", new_article_path, class: "btn btn-success pull-right" %>
+		 <%= link_to "Categories", categories_path, class: "btn btn-success pull-right" %>
+	</h2><hr/>	
+	<div class="col-md-8 col-md-offset-2">		
+		<table class="table">
+			<tr>
+				<th>S.no</th>
+				<th>Article</th>
+				<th>Category</th>
+			</tr>
+			<% @articles.each_with_index do |article, i| %>
+			<tr>
+				<td><%= i+1 %>.</td>
+				<td><%= link_to article.title, article_path(article) %></td>
+				<td><%= link_to article.category.name, category_path(article.category) %></td>
+			</tr>
+			<% end %>	
+		</table>	
+	</div>	
+</div>

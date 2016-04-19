@@ -1,0 +1,30 @@
+<%= form_for @article do |f| %>
+	<% if @article.errors.any? %>
+		<h3><%= pluralize(@article.errors.count, "error")%> prohibited from saving article...</h3>
+		<ul>
+			<% @article.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+			<% end %>
+		</ul>	
+	<% end %>	
+
+	<div class="col-md-9 col-md-offset-1">
+		<div class="form-group">
+			<p><b>Title:</b></p>
+			<%= f.text_field :title, class: "form-control" %>
+		</div>
+		<div class="form-group">
+			<p><b>Description:</b></p>
+			<%= f.text_area :description, class: "form-control" %>
+		</div>	
+		<div class="form-group">
+			<p><b>Category</b></p>
+			<%= f.select(:category_id, options_for_select(@categories), {}, { class: "form-control" }) %>	
+		</div>
+		<%= f.hidden_field :user_id, :value => @user.id %>
+		<div class="form-group">
+				<%= f.submit :class => "btn btn-success" %>
+		</div>	
+	</div>
+
+<% end %>

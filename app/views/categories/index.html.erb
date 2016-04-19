@@ -1,0 +1,11 @@
+<div class="container">
+	<h1>Categories
+	 <%= link_to "New", new_category_path, class: "btn btn-success pull-right" %>
+	 <%= link_to "Articles", articles_path, class: "btn btn-success pull-right" %>
+	</h1><hr/>
+	<div class="col-md-8 col-md-offset-2">	
+		<% @categories.each_with_index do |category,i| %>
+			<%= i+1 %>.  <%= link_to category.name, category_path(category) %><br/>
+		<% end %>
+	</div>	
+</div>	

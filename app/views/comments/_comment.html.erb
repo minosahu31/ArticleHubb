@@ -1,0 +1,14 @@
+<div class="comment">
+	<p class="comment-content">
+		<%= comment.description %>
+	</p>
+	<p class="comment-posted-by">
+		Posted by:<%= comment.user.email %>
+	</p>
+	<div class="actions">
+		<% if user_signed_in? && comment.user == @user %>
+			<%= link_to "Edit", edit_comment_path(comment), class: "btn-sm btn-success" %>
+			<%= link_to "Delete", comment_path(comment), method: :delete, data: { confirm: "Are you sure want to delete..?"  }, class: "btn-sm btn-success" %>
+		<% end %>
+	</div>	
+</div>	
