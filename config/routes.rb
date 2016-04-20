@@ -1,14 +1,23 @@
 Rails.application.routes.draw do
 
+  get 'comment_likes/create'
+
   devise_for :users
   
-  resources 'articles'
+  resources 'articles' do
+    resources 'likes', only: [:create]
+    resources 'comments' do
+      resources 'comment_likes', only: [:create]
+    end
+  end  
 
   resources 'categories'
 
-  resources 'comments'
-
-  resources 'likes'
+  #resources 'comments'
+ #resources 'comments' do
+  #  resources 'comment_likes', only: [:create]
+ # end
+  
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

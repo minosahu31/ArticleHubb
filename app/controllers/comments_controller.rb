@@ -11,8 +11,8 @@ class CommentsController < ApplicationController
 
   def create
     @comment = Comment.new(comment_params)
-    @article = params[:comment][:article_id]
-    if @comment.save
+    @article = Article.find(params[:article_id])
+    if Comment.create(description: @comment.description, article_id: @article.id, user_id: @user.id)
       #@articles = Article.all
       #@article_comments = Article.comments
       redirect_to article_path(@article)
@@ -51,7 +51,7 @@ class CommentsController < ApplicationController
   end
 
   def comment_params
-    params.require(:comment).permit(:description,:article_id,:user_id)
+    params.require(:comment).permit(:description)
   end
 
   def find_comment

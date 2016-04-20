@@ -4,10 +4,18 @@
 		<%= link_to "Edit", edit_article_path(@article), class: "btn btn-success pull-right" %>
 	</h1><hr>
 	<div class="col-md-8 col-md-offset-2">
-		<h3><u>Description:</u>
-			<%= link_to "Like", likes_path, method: "post" , class: "btn-sm btn-success pull-right" %></h3>
+		<h3>
+			<u>Description:</u>
+			<% if user_signed_in? %>
+				<% if @user.likes.pluck(:article_id).include?(@article.id) %>
+					<span class="glyphicon glyphicon-ok btn btn-danger pull-right" aria-hidden="true"> Liked</span>
+				<% else %>	
+					<%= link_to "Like",  article_likes_path(@article), method: "post" , class: "btn-sm btn-success pull-right" %>
+				<% end %>	
+			<% end %>	
+		</h3>
+			
 		<p><%= @article.description %></p>
-
 		
 		<u><h3>Comments:</h3></u>
 		<%= render @article.comments %>

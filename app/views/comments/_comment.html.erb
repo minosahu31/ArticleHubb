@@ -6,9 +6,16 @@
 		Posted by:<%= comment.user.email %>
 	</p>
 	<div class="actions">
-		<% if user_signed_in? && comment.user == @user %>
-			<%= link_to "Edit", edit_comment_path(comment), class: "btn-sm btn-success" %>
-			<%= link_to "Delete", comment_path(comment), method: :delete, data: { confirm: "Are you sure want to delete..?"  }, class: "btn-sm btn-success" %>
+		<% if user_signed_in? %>
+			<% if @user.comment_likes.pluck(:comment_id).include?(comment.id) %>
+				<span class="glyphicon glyphicon-ok btn-sm btn-danger" aria-hidden="true"> Liked</span>
+			<% else %>	
+				<%= link_to "Like",  article_comment_comment_likes_path(@article,comment), method: "post" , class: "btn-sm btn-success" %>
+			<% end %>	
+			<% if comment.user == @user %>
+				<%= link_to "Edit", edit_article_comment_path(@article,comment), class: "btn-sm btn-success" %>
+				<%= link_to "Delete", article_comment_path(@article,comment), method: :delete, data: { confirm: "Are you sure want to delete..?"  }, class: "btn-sm btn-success" %>
+			<% end %>	
 		<% end %>
 	</div>	
 </div>	

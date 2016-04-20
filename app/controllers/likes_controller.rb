@@ -1,11 +1,10 @@
 class LikesController < ApplicationController
   
   def create
-  	raise params.inspect
   	@user = current_user
-  	@like = UserLike.new(:user_id => @user, :article_id => @article)
-  	if @like.save
-
+  	@article = Article.find(params[:article_id])
+  	if Like.create(user_id: @user.id, article_id: @article.id)
+  		redirect_to article_path(@article)
   	end 
   end
 
