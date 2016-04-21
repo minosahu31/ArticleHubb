@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  mount_uploader :image, ImageUploader # Tells rails to use this uploader for this model.       
+
   has_many :articles, dependent: :destroy       
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy

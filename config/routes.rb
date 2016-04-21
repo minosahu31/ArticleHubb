@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   get 'comment_likes/create'
 
-  devise_for :users
+  devise_for :users, :controllers => { registrations: 'registrations' }
   
   resources 'articles' do
     resources 'likes', only: [:create]

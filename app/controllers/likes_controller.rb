@@ -7,7 +7,7 @@ class LikesController < ApplicationController
 	  	if Like.create(user_id: @user.id, article_id: @article.id)
 		  	# Tell the UserMailer to send a welcome email after save
 	        UserMailer.writer_email(@user,@article).deliver_later
-	        UserMailer.welcome_email(@user,@article).deliver_later
+	        UserMailer.article_liker_email(@user,@article).deliver_later
 
 	  		redirect_to article_path(@article) and return
 	        format.html { redirect_to(@user, notice: 'User was successfully created.') } and return

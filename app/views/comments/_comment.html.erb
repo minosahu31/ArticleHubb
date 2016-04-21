@@ -3,7 +3,7 @@
 		<%= comment.description %>
 	</p>
 	<p class="comment-posted-by">
-		Posted by:<%= comment.user.email %>
+		Posted by: <%= comment.user.name %>
 	</p>
 	<div class="actions">
 		<% if user_signed_in? %>

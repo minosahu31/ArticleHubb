@@ -1,7 +1,13 @@
 class UserMailer < ApplicationMailer
 	
 	default from: 'sanjeevsahu292@gmail.com'
- 
+	
+	def welcome_email(user)
+	   @user = user
+	   @url  = 'http://localhost:3000/articles'
+	   mail(to:[@user.email], subject: 'Welcome to Article Hub')
+	end 
+
 	def writer_email(user, article)
 		@user = user
 	   	@article = article
@@ -12,7 +18,7 @@ class UserMailer < ApplicationMailer
 		end
 	end
 
-	def welcome_email(user, article)
+	def article_liker_email(user, article)
 	   @user = user
 	   @article = article
 	   @url  = 'http://localhost:3000/articles'

@@ -2,6 +2,9 @@
 	<h1>
 		<%= @article.title %><%= link_to "Back", articles_path, class: "btn btn-success pull-right"  %>
 		<%= link_to "Edit", edit_article_path(@article), class: "btn btn-success pull-right" %>
+		<% if @article.user == @user %>
+			<%= link_to "Delete", article_path(@article), method: "delete", data: { confirm: "Are you sure want to delete?" },  class: "btn btn-success pull-right" %>
+		<% end %>	
 	</h1><hr>
 	<div class="col-md-8 col-md-offset-2">
 		<h3>
@@ -14,9 +17,14 @@
 				<% end %>	
 			<% end %>	
 		</h3>
-			
-		<p><%= @article.description %></p>
+		<% if @article.post_image? %>
+			<div class="for-image">
+				<div class="for-image-inner"><%= image_tag(@article.post_image_url)  %><p><%= @article.image_description %></p></div>
+			</div>	
+		<% end %>	
 		
+		<p><%= @article.description %></p>
+		<h5>Posted by:  <u><%= @article.user.name %></u></h5>
 		<u><h3>Comments:</h3></u>
 		<%= render @article.comments %>
 	</div>		
