@@ -4,16 +4,26 @@ class RegistrationsController < Devise::RegistrationsController
 		@user = User.new(sign_up_params)
 		if @user.save
 	        UserMailer.welcome_email(@user).deliver_later
-	        flash[:notice] = 'User was successfully created.'
-	        flash[:alert] = 'Welcome to ArticleHub.com'
-			redirect_to articles_path and return
-
-			format.html { redirect_to(@user, notice: 'User was successfully created.') } and return
-	        format.json { render json: @user, status: :created, location: @user } and return
-	    else
-	        format.html { render action: 'new' } and return
-	        format.json { render json: @user.errors, status: :unprocessable_entity } and return
-	    end
+	        #flash[:notice] = 'User was successfully created.'
+	        #flash[:alert] = 'Welcome to ArticleHub.com'
+			#redirect_to new_user_session_path 
+	  yield @user if block_given?
+		    if @user.persisted?
+		      if @user.active_for_authentication?
+		        set_flash_message! :notice, :signed_up
+		        sign_up(@user.name, @user)
+		        respond_with @user, location: after_sign_up_path_for(@user)
+		      else
+		        set_flash_message! :notice, :"signed_up_but_#{@user.inactive_message}"
+		        expire_data_after_sign_in!
+		        respond_with @user, location: after_inactive_sign_up_path_for(@user)
+		      end
+		    else
+		      clean_up_passwords @user
+		      set_minimum_password_length
+		      respond_with @user
+		    end
+		end    
 	end
 
 	private 
