@@ -1,4 +1,4 @@
-<div class="container">	
+<div class="container container1">	
 	<h1><%= @category.name %><%= link_to "Add Article", new_article_path ,class: "btn btn-success pull-right" %><%= link_to "Back", categories_path ,class: "btn btn-success pull-right" %></h1><hr/>
 	<div class="col-md-8 col-md-offset-2">
 		<% @articles.each_with_index do |article,i| %>
